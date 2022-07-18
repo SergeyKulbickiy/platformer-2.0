@@ -25,7 +25,7 @@ font_score = pygame.font.SysFont('Bauhaus 93', 30)
 tile_size = 50
 game_over = 0
 main_menu = True
-level = 3
+level = 0
 max_levels = 7
 score = 0
 
@@ -41,8 +41,8 @@ start_img = pygame.image.load('img/start_btn.png')
 exit_img = pygame.image.load('img/exit_btn.png')
 
 # load sounds
-# pygame.mixer.music.load('img/music.wav')
-# pygame.mixer.music.play(-1, 0.0, 5000)
+pygame.mixer.music.load('img/music.wav')
+pygame.mixer.music.play(-1, 0.0, 5000)
 coin_fx = pygame.mixer.Sound('img/coin.wav')
 coin_fx.set_volume(0.5)
 jump_fx = pygame.mixer.Sound('img/jump.wav')
@@ -60,6 +60,8 @@ def draw_text(text, font, text_col, x, y):
 def reset_level(level):
     player.reset(100, screen_height - 130)
     blob_group.empty()
+    platform_group.empty()
+    coin_group.empty()
     lava_group.empty()
     exit_group.empty()
 
@@ -68,7 +70,9 @@ def reset_level(level):
         pickle_in = open(f'level{level}_data', 'rb')
         world_data = pickle.load(pickle_in)
     world = World(world_data)
-
+    # create dummy coin for showing the score
+    score_coin = Coin(tile_size // 2, tile_size // 2)
+    coin_group.add(score_coin)
     return world
 
 
@@ -109,6 +113,7 @@ class Player():
         dx = 0
         dy = 0
         walk_cooldown = 5
+        col_thresh = 20
 
         if game_over == 0:
             # get keypresses
@@ -184,6 +189,26 @@ class Player():
             if pygame.sprite.spritecollide(self, exit_group, False):
                 game_over = 1
 
+            # check for collision with platforms
+            for platform in platform_group:
+                # collision in the x direction
+                if platform.rect.colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
+                    dx = 0
+                # collision in the y direction
+                if platform.rect.colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
+                    # check if below platform
+                    if abs((self.rect.top + dy) - platform.rect.bottom) < col_thresh:
+                        self.vel_y = 0
+                        dy = platform.rect.bottom - self.rect.top
+                    # check if above platform
+                    elif abs((self.rect.bottom + dy) - platform.rect.top) < col_thresh:
+                        self.rect.bottom = platform.rect.top - 1
+                        self.in_air = False
+                        dy = 0
+                    # move sideways with the platform
+                    if platform.move_x != 0:
+                        self.rect.x += platform.move_direction
+
             # update player coordinates
             self.rect.x += dx
             self.rect.y += dy
@@ -197,7 +222,6 @@ class Player():
 
         # draw player onto screen
         screen.blit(self.image, self.rect)
-        pygame.draw.rect(screen, (255, 255, 255), self.rect, 2)
 
         return game_over
 
@@ -275,7 +299,6 @@ class World():
     def draw(self):
         for tile in self.tile_list:
             screen.blit(tile[0], tile[1])
-            pygame.draw.rect(screen, (255, 255, 255), tile[1], 2)
 
 
 class Enemy(pygame.sprite.Sprite):
