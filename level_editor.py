@@ -18,8 +18,6 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Level Editor')
 
 # load images
-sun_img = pygame.image.load('img/sun.png')
-sun_img = pygame.transform.scale(sun_img, (tile_size, tile_size))
 bg_img = pygame.image.load('img/sky.png')
 bg_img = pygame.transform.scale(bg_img, (screen_width, screen_height - margin))
 dirt_img = pygame.image.load('img/dirt.png')
@@ -33,9 +31,46 @@ exit_img = pygame.image.load('img/exit.png')
 save_img = pygame.image.load('img/save_btn.png')
 load_img = pygame.image.load('img/load_btn.png')
 
+# load additional images
+stone_img = pygame.image.load('img/stone.png')
+stone_coal_alt_img = pygame.image.load('img/stone_coal_alt.png')
+stone_diamond_alt_img = pygame.image.load('img/stone_diamond_alt.png')
+stone_dirt_img = pygame.image.load('img/stone_dirt.png')
+stone_gold_alt_img = pygame.image.load('img/stone_gold_alt.png')
+stone_grass_img = pygame.image.load('img/stone_grass.png')
+dirt_sand_img = pygame.image.load('img/dirt_sand.png')
+stone_silver_alt_img = pygame.image.load('img/stone_silver_alt.png')
+stone_iron_alt_img = pygame.image.load('img/stone_iron_alt.png')
+stone_browniron_alt_img = pygame.image.load('img/stone_browniron_alt.png')
+stone_sand_img = pygame.image.load('img/stone_sand.png')
+stone_snow_img = pygame.image.load('img/stone_snow.png')
+greystone_img = pygame.image.load('img/greystone.png')
+greystone_ruby_alt_img = pygame.image.load('img/greystone_ruby_alt.png')
+greystone_sand_img = pygame.image.load('img/greystone_sand.png')
+dirt_snow_img = pygame.image.load('img/dirt_snow.png')
+
+mushroom_brown_img = pygame.image.load('img/mushroom_brown.png')
+mushroom_red_img = pygame.image.load('img/mushroom_red.png')
+brick_grey_img = pygame.image.load('img/brick_grey.png')
+brick_red_img = pygame.image.load('img/brick_red.png')
+fence_stone_img = pygame.image.load('img/fence_stone.png')
+fence_wood_img = pygame.image.load('img/fence_wood.png')
+grass_brown_img = pygame.image.load('img/grass_brown.png')
+grass_tan_img = pygame.image.load('img/grass_tan.png')
+grass1_img = pygame.image.load('img/grass1.png')
+grass4_img = pygame.image.load('img/grass4.png')
+leaves_transparent_img = pygame.image.load('img/leaves_transparent.png')
+oven_img = pygame.image.load('img/oven.png')
+rock_img = pygame.image.load('img/rock.png')
+rock_moss_img = pygame.image.load('img/rock_moss.png')
+trunk_bottom_img = pygame.image.load('img/trunk_bottom.png')
+trunk_mid_img = pygame.image.load('img/trunk_mid.png')
+wheat_stage2_img = pygame.image.load('img/wheat_stage2.png')
+wheat_stage3_img = pygame.image.load('img/wheat_stage3.png')
+
 # define game variables
 clicked = False
-level = 1
+level = 0
 
 # define colours
 white = (255, 255, 255)
@@ -108,6 +143,147 @@ def draw_world():
                     img = pygame.transform.scale(exit_img, (tile_size, int(tile_size * 1.5)))
                     screen.blit(img, (col * tile_size, row * tile_size - (tile_size // 2)))
 
+                # load additional blocks
+                if world_data[row][col] == 9:
+                    # stone blocks
+                    img = pygame.transform.scale(stone_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 10:
+                    # stone_coal_alt blocks
+                    img = pygame.transform.scale(stone_coal_alt_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 11:
+                    # stone_diamond_alt blocks
+                    img = pygame.transform.scale(stone_diamond_alt_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 12:
+                    # stone_dirt blocks
+                    img = pygame.transform.scale(stone_dirt_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 13:
+                    # stone_gold_alt blocks
+                    img = pygame.transform.scale(stone_gold_alt_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 14:
+                    # stone_grass blocks
+                    img = pygame.transform.scale(stone_grass_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 15:
+                    # dirt_sand blocks
+                    img = pygame.transform.scale(dirt_sand_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 16:
+                    # stone_silver_alt blocks
+                    img = pygame.transform.scale(stone_silver_alt_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 17:
+                    # stone_iron_alt blocks
+                    img = pygame.transform.scale(stone_iron_alt_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 18:
+                    # stone_browniron_alt blocks
+                    img = pygame.transform.scale(stone_browniron_alt_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 19:
+                    # stone_sand blocks
+                    img = pygame.transform.scale(stone_sand_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 20:
+                    # stone_snow blocks
+                    img = pygame.transform.scale(stone_snow_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 21:
+                    # greystone blocks
+                    img = pygame.transform.scale(greystone_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 22:
+                    # greystone_ruby_alt blocks
+                    img = pygame.transform.scale(greystone_ruby_alt_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 23:
+                    # greystone_sand blocks
+                    img = pygame.transform.scale(greystone_sand_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 24:
+                    # dirt_snow blocks
+                    img = pygame.transform.scale(dirt_snow_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+
+                # add decoration
+
+                if world_data[row][col] == 25:
+                    # mushroom_brown blocks
+                    img = pygame.transform.scale(mushroom_brown_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 26:
+                    # mushroom_red blocks
+                    img = pygame.transform.scale(mushroom_red_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 27:
+                    # brick_grey blocks
+                    img = pygame.transform.scale(brick_grey_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 28:
+                    # brick_red blocks
+                    img = pygame.transform.scale(brick_red_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 29:
+                    # fence_stone blocks
+                    img = pygame.transform.scale(fence_stone_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 30:
+                    # fence_wood blocks
+                    img = pygame.transform.scale(fence_wood_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 31:
+                    # grass_brown blocks
+                    img = pygame.transform.scale(grass_brown_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 32:
+                    # grass_tan blocks
+                    img = pygame.transform.scale(grass_tan_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 33:
+                    # grass1 blocks
+                    img = pygame.transform.scale(grass1_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 34:
+                    # grass4 blocks
+                    img = pygame.transform.scale(grass4_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 35:
+                    # leaves_transparent blocks
+                    img = pygame.transform.scale(leaves_transparent_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 36:
+                    # oven blocks
+                    img = pygame.transform.scale(oven_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 37:
+                    # rock blocks
+                    img = pygame.transform.scale(rock_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 38:
+                    # rock_moss blocks
+                    img = pygame.transform.scale(rock_moss_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 39:
+                    # trunk_bottom blocks
+                    img = pygame.transform.scale(trunk_bottom_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 40:
+                    # trunk_mid blocks
+                    img = pygame.transform.scale(trunk_mid_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 41:
+                    # wheat_stage2 blocks
+                    img = pygame.transform.scale(wheat_stage2_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 42:
+                    # wheat_stage3 blocks
+                    img = pygame.transform.scale(wheat_stage3_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+
 
 class Button():
     def __init__(self, x, y, image):
@@ -150,7 +326,6 @@ while run:
     # draw background
     screen.fill(green)
     screen.blit(bg_img, (0, 0))
-    screen.blit(sun_img, (tile_size * 2, tile_size * 2))
 
     # load and save level
     if save_button.draw():
@@ -188,12 +363,12 @@ while run:
                 # update tile value
                 if pygame.mouse.get_pressed()[0] == 1:
                     world_data[y][x] += 1
-                    if world_data[y][x] > 8:
+                    if world_data[y][x] > 42:
                         world_data[y][x] = 0
                 elif pygame.mouse.get_pressed()[2] == 1:
                     world_data[y][x] -= 1
                     if world_data[y][x] < 0:
-                        world_data[y][x] = 8
+                        world_data[y][x] = 42
         if event.type == pygame.MOUSEBUTTONUP:
             clicked = False
         # up and down key presses to change level number

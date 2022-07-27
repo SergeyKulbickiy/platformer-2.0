@@ -31,10 +31,9 @@ score = 0
 
 # define colours
 white = (255, 255, 255)
-blue = (0, 0, 255)
+orange = (230, 97, 29)
 
 # load images
-sun_img = pygame.image.load('img/sun.png')
 bg_img = pygame.image.load('img/sky.png')
 restart_img = pygame.image.load('img/restart_btn.png')
 start_img = pygame.image.load('img/start_btn.png')
@@ -64,6 +63,7 @@ def reset_level(level):
     coin_group.empty()
     lava_group.empty()
     exit_group.empty()
+    decoration_group.empty()
 
     # load in level data and create world
     if path.exists(f'level{level}_data'):
@@ -216,7 +216,7 @@ class Player():
 
         elif game_over == -1:
             self.image = self.dead_image
-            draw_text('GAME OVER!', font, blue, (screen_width // 2) - 200, screen_height // 2)
+            draw_text('GAME OVER!', font, orange, (screen_width // 2) - 200, screen_height // 2)
             if self.rect.y > 200:
                 self.rect.y -= 5
 
@@ -230,9 +230,9 @@ class Player():
         self.images_left = []
         self.index = 0
         self.counter = 0
-        for num in range(1, 5):
+        for num in range(1, 4):
             img_right = pygame.image.load(f'img/guy{num}.png')
-            img_right = pygame.transform.scale(img_right, (40, 80))
+            img_right = pygame.transform.scale(img_right, (50, 80))
             img_left = pygame.transform.flip(img_right, True, False)
             self.images_right.append(img_right)
             self.images_left.append(img_left)
@@ -256,6 +256,43 @@ class World():
         # load images
         dirt_img = pygame.image.load('img/dirt.png')
         grass_img = pygame.image.load('img/grass.png')
+
+        # load additional images
+        stone_img = pygame.image.load('img/stone.png')
+        stone_coal_alt_img = pygame.image.load('img/stone_coal_alt.png')
+        stone_diamond_alt_img = pygame.image.load('img/stone_diamond_alt.png')
+        stone_dirt_img = pygame.image.load('img/stone_dirt.png')
+        stone_gold_alt_img = pygame.image.load('img/stone_gold_alt.png')
+        stone_grass_img = pygame.image.load('img/stone_grass.png')
+        dirt_sand_img = pygame.image.load('img/dirt_sand.png')
+        stone_silver_alt_img = pygame.image.load('img/stone_silver_alt.png')
+        stone_iron_alt_img = pygame.image.load('img/stone_iron_alt.png')
+        stone_browniron_alt_img = pygame.image.load('img/stone_browniron_alt.png')
+        stone_sand_img = pygame.image.load('img/stone_sand.png')
+        stone_snow_img = pygame.image.load('img/stone_snow.png')
+        greystone_img = pygame.image.load('img/greystone.png')
+        greystone_ruby_alt_img = pygame.image.load('img/greystone_ruby_alt.png')
+        greystone_sand_img = pygame.image.load('img/greystone_sand.png')
+        dirt_snow_img = pygame.image.load('img/dirt_snow.png')
+
+        mushroom_brown_img = pygame.image.load('img/mushroom_brown.png')
+        mushroom_red_img = pygame.image.load('img/mushroom_red.png')
+        brick_grey_img = pygame.image.load('img/brick_grey.png')
+        brick_red_img = pygame.image.load('img/brick_red.png')
+        fence_stone_img = pygame.image.load('img/fence_stone.png')
+        fence_wood_img = pygame.image.load('img/fence_wood.png')
+        grass_brown_img = pygame.image.load('img/grass_brown.png')
+        grass_tan_img = pygame.image.load('img/grass_tan.png')
+        grass1_img = pygame.image.load('img/grass1.png')
+        grass4_img = pygame.image.load('img/grass4.png')
+        leaves_transparent_img = pygame.image.load('img/leaves_transparent.png')
+        oven_img = pygame.image.load('img/oven.png')
+        rock_img = pygame.image.load('img/rock.png')
+        rock_moss_img = pygame.image.load('img/rock_moss.png')
+        trunk_bottom_img = pygame.image.load('img/trunk_bottom.png')
+        trunk_mid_img = pygame.image.load('img/trunk_mid.png')
+        wheat_stage2_img = pygame.image.load('img/wheat_stage2.png')
+        wheat_stage3_img = pygame.image.load('img/wheat_stage3.png')
 
         row_count = 0
         for row in data:
@@ -293,12 +330,192 @@ class World():
                 if tile == 8:
                     exit = Exit(col_count * tile_size, row_count * tile_size - (tile_size // 2))
                     exit_group.add(exit)
+
+                # load additional blocks
+                if tile == 9:
+                    img = pygame.transform.scale(stone_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 10:
+                    img = pygame.transform.scale(stone_coal_alt_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 11:
+                    img = pygame.transform.scale(stone_diamond_alt_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 12:
+                    img = pygame.transform.scale(stone_dirt_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 13:
+                    img = pygame.transform.scale(stone_gold_alt_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 14:
+                    img = pygame.transform.scale(stone_grass_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 15:
+                    img = pygame.transform.scale(dirt_sand_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 16:
+                    img = pygame.transform.scale(stone_silver_alt_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 17:
+                    img = pygame.transform.scale(stone_iron_alt_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 18:
+                    img = pygame.transform.scale(stone_browniron_alt_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 19:
+                    img = pygame.transform.scale(stone_sand_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 20:
+                    img = pygame.transform.scale(stone_snow_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 21:
+                    img = pygame.transform.scale(greystone_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 22:
+                    img = pygame.transform.scale(greystone_ruby_alt_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 23:
+                    img = pygame.transform.scale(greystone_sand_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 24:
+                    img = pygame.transform.scale(dirt_snow_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+
+                # add decoration
+
+                if tile == 25:
+                    decoration = Decoration(mushroom_brown_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 26:
+                    decoration = Decoration(mushroom_red_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 27:
+                    decoration = Decoration(brick_grey_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 28:
+                    decoration = Decoration(brick_red_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 29:
+                    decoration = Decoration(fence_stone_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 30:
+                    decoration = Decoration(fence_wood_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 31:
+                    decoration = Decoration(grass_brown_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 32:
+                    decoration = Decoration(grass_tan_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 33:
+                    decoration = Decoration(grass1_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 34:
+                    decoration = Decoration(grass4_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 35:
+                    decoration = Decoration(leaves_transparent_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 36:
+                    decoration = Decoration(oven_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 37:
+                    decoration = Decoration(rock_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 38:
+                    decoration = Decoration(rock_moss_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 39:
+                    decoration = Decoration(trunk_bottom_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 40:
+                    decoration = Decoration(trunk_mid_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 41:
+                    decoration = Decoration(wheat_stage2_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+                if tile == 42:
+                    decoration = Decoration(wheat_stage3_img, col_count * tile_size, row_count * tile_size)
+                    decoration_group.add(decoration)
+
                 col_count += 1
             row_count += 1
 
     def draw(self):
         for tile in self.tile_list:
             screen.blit(tile[0], tile[1])
+
+
+class Decoration(pygame.sprite.Sprite):
+    def __init__(self, img, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.midtop = (x + tile_size // 2, y + tile_size - self.image.get_height())
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -377,6 +594,7 @@ platform_group = pygame.sprite.Group()
 lava_group = pygame.sprite.Group()
 coin_group = pygame.sprite.Group()
 exit_group = pygame.sprite.Group()
+decoration_group = pygame.sprite.Group()
 
 # create dummy coin for showing the score
 score_coin = Coin(tile_size // 2, tile_size // 2)
@@ -399,7 +617,6 @@ while run:
     clock.tick(fps)
 
     screen.blit(bg_img, (0, 0))
-    screen.blit(sun_img, (100, 100))
 
     if main_menu == True:
         if exit_button.draw():
@@ -412,6 +629,7 @@ while run:
         if game_over == 0:
             blob_group.update()
             platform_group.update()
+            decoration_group.update()
             # update score
             # check if a coin has been collected
             if pygame.sprite.spritecollide(player, coin_group, True):
@@ -424,6 +642,7 @@ while run:
         lava_group.draw(screen)
         coin_group.draw(screen)
         exit_group.draw(screen)
+        decoration_group.draw(screen)
 
         game_over = player.update(game_over)
 
@@ -445,7 +664,7 @@ while run:
                 world = reset_level(level)
                 game_over = 0
             else:
-                draw_text('YOU WIN!', font, blue, (screen_width // 2) - 140, screen_height // 2)
+                draw_text('YOU WIN!', font, orange, (screen_width // 2) - 140, screen_height // 2)
                 if restart_button.draw():
                     level = 1
                     # reset level
